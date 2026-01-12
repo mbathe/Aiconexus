@@ -146,7 +146,7 @@ def print_test_map():
     print("="*80 + "\n")
     
     # Print statistics
-    print("📊 Overall Statistics")
+    print("Overall Statistics")
     print("-" * 80)
     print(f"Total Test Files:        {len(map_data)}")
     print(f"Total Test Cases:        {total_tests}")
@@ -156,7 +156,7 @@ def print_test_map():
     print()
     
     # Print detailed breakdown
-    print("📋 Module Breakdown")
+    print("Module Breakdown")
     print("-" * 80)
     
     for filename in sorted(map_data.keys()):
@@ -167,20 +167,20 @@ def print_test_map():
         
         # Create visual bar for tests
         bar_length = min(tests // 2, 20)
-        bar = "█" * bar_length
+        bar = "=" * bar_length
         
-        print(f"\n{filename:25} {size:>6}  │ {tests:>2} tests │ {coverage:>3} coverage")
-        print(f"{'':25}          │ {bar:<20} │")
+        print(f"\n{filename:25} {size:>6}  | {tests:>2} tests | {coverage:>3} coverage")
+        print(f"{'':25}          | {bar:<20} |")
         
         # List test classes
         classes = module["classes"]
         for cls_name, count in sorted(classes.items()):
-            print(f"{'':25}          └─ {cls_name:40} ({count})")
+            print(f"{'':25}          +- {cls_name:40} ({count})")
     
     print("\n" + "="*80)
     
     # Print coverage summary
-    print("\n📈 Coverage Summary")
+    print("\nCoverage Summary")
     print("-" * 80)
     
     coverage_data = [
@@ -197,71 +197,71 @@ def print_test_map():
     for module, tests, coverage, description in coverage_data:
         # Coverage bar
         cov_val = int(coverage.rstrip("%"))
-        cov_bar = "▓" * (cov_val // 5)
-        cov_empty = "░" * (20 - len(cov_bar))
+        cov_bar = "=" * (cov_val // 5)
+        cov_empty = "-" * (20 - len(cov_bar))
         
-        print(f"{module:15} {coverage:>4} │{cov_bar}{cov_empty}│ {description}")
+        print(f"{module:15} {coverage:>4} |{cov_bar}{cov_empty}| {description}")
     
     print("\n" + "="*80)
     
     # Print test strategy
-    print("\n🎯 Test Strategy")
+    print("\nTest Strategy")
     print("-" * 80)
     print("""
-✅ Unit Tests (168)
-   • Fast, isolated component testing
-   • < 5 seconds total execution
-   • No external dependencies
-   • Maximum coverage per component
+Unit Tests (168)
+   - Fast, isolated component testing
+   - < 5 seconds total execution
+   - No external dependencies
+   - Maximum coverage per component
    
-✅ Integration Tests (20)
-   • Component interaction validation
-   • Real async/await patterns
-   • Multi-agent coordination
-   • 10-30 seconds execution
+Integration Tests (20)
+   - Component interaction validation
+   - Real async/await patterns
+   - Multi-agent coordination
+   - 10-30 seconds execution
    
-✅ Performance Tests (20)
-   • Latency & throughput benchmarks
-   • Scalability with 1000+ agents
-   • Concurrent operations
-   • 30-60 seconds execution
+Performance Tests (20)
+   - Latency & throughput benchmarks
+   - Scalability with 1000+ agents
+   - Concurrent operations
+   - 30-60 seconds execution
 
 Total: 208 tests in < 2 minutes
 """)
     
     # Print test features
     print("="*80)
-    print("\n✨ Key Features")
+    print("\nKey Features")
     print("-" * 80)
     print("""
-🏗️  Elegant Architecture
-    • Reusable fixtures (conftest.py)
-    • Builder pattern for test data
-    • DRY parametrized tests
-    • Clear, readable assertions
+Elegant Architecture
+    - Reusable fixtures (conftest.py)
+    - Builder pattern for test data
+    - DRY parametrized tests
+    - Clear, readable assertions
     
-🔄 Async-First Design
-    • Full pytest-asyncio support
-    • 120+ async test cases
-    • Concurrent operation testing
-    • Real async/await patterns
+Async-First Design
+    - Full pytest-asyncio support
+    - 120+ async test cases
+    - Concurrent operation testing
+    - Real async/await patterns
     
-📊 Comprehensive Coverage
-    • Happy path scenarios
-    • Error conditions & edge cases
-    • Boundary testing
-    • Integration flows
+Comprehensive Coverage
+    - Happy path scenarios
+    - Error conditions & edge cases
+    - Boundary testing
+    - Integration flows
     
-🎯 Production Ready
-    • CI/CD friendly
-    • No flaky tests
-    • Deterministic execution
-    • Clear error messages
+Production Ready
+    - CI/CD friendly
+    - No flaky tests
+    - Deterministic execution
+    - Clear error messages
 """)
     
     # Print execution guide
     print("="*80)
-    print("\n🚀 Quick Start")
+    print("\nQuick Start")
     print("-" * 80)
     print("""
 # Install dependencies
@@ -285,7 +285,7 @@ pytest -k "expertise" -v
 """)
     
     print("="*80)
-    print(f"\n✅ Complete Test Suite Ready\n".center(80))
+    print(f"\nComplete Test Suite Ready\n".center(80))
     print("="*80 + "\n")
 
 
