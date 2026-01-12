@@ -7,7 +7,6 @@ __license__ = "MIT"
 
 # Core imports for public API
 from aiconexus.core.agent import Agent
-from aiconexus.core.capability import Capability
 from aiconexus.exceptions import (
     AIConexusError,
     AgentError,
@@ -20,7 +19,6 @@ from aiconexus.exceptions import (
 
 __all__ = [
     "Agent",
-    "Capability",
     "AIConexusError",
     "AgentError",
     "ProtocolError",
