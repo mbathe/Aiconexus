@@ -1,4 +1,4 @@
-# 🧪 AIConexus SDK - Elegant Test Suite
+# AIConexus SDK - Elegant Test Suite
 
 ## Overview
 
@@ -8,24 +8,24 @@ The AIConexus SDK test suite is designed with elegance and clarity in mind. It c
 
 ```
 tests/
-├── sdk/                          # SDK unit tests
-│   ├── conftest.py              # Shared fixtures
-│   ├── test_types.py            # Data types tests
-│   ├── test_registry.py         # Agent discovery tests
-│   ├── test_validator.py        # Message validation tests
-│   ├── test_connector.py        # P2P communication tests
-│   ├── test_tools.py            # Tool calling tests
-│   ├── test_executor.py         # ReAct loop tests
-│   ├── test_orchestrator.py     # Component coordination tests
-│   └── test_agent.py            # High-level API tests
-├── integration/                  # Integration tests
-│   ├── conftest.py
-│   ├── test_multi_agent.py      # Multi-agent scenarios
-│   └── test_communication.py    # Agent communication
-└── performance/                  # Performance tests
-    ├── conftest.py
-    ├── test_latency.py          # Latency benchmarks
-    └── test_throughput.py       # Throughput tests
+ sdk/ # SDK unit tests
+  conftest.py # Shared fixtures
+  test_types.py # Data types tests
+  test_registry.py # Agent discovery tests
+  test_validator.py # Message validation tests
+  test_connector.py # P2P communication tests
+  test_tools.py # Tool calling tests
+  test_executor.py # ReAct loop tests
+  test_orchestrator.py # Component coordination tests
+  test_agent.py # High-level API tests
+ integration/ # Integration tests
+  conftest.py
+  test_multi_agent.py # Multi-agent scenarios
+  test_communication.py # Agent communication
+ performance/ # Performance tests
+  conftest.py
+  test_latency.py # Latency benchmarks
+  test_throughput.py # Throughput tests
 ```
 
 ## Quick Start
@@ -66,7 +66,7 @@ pytest -m "not slow" -v
 
 ## Test Features
 
-### ✨ Elegant Fixtures
+###  Elegant Fixtures
 
 Common fixtures available in `conftest.py`:
 
@@ -98,46 +98,46 @@ mock_llm
 mock_llm_with_tools
 ```
 
-### 📊 Parametrized Tests
+### Parametrized Tests
 
 Tests use `@pytest.mark.parametrize` to avoid duplication:
 
 ```python
 @pytest.mark.parametrize("field_type", [
-    "string", "number", "boolean", "array", "object"
+ "string", "number", "boolean", "array", "object"
 ])
 def test_all_field_types(self, field_type):
-    schema = FieldSchema(type=field_type, description="Test")
-    assert schema.type == field_type
+ schema = FieldSchema(type=field_type, description="Test")
+ assert schema.type == field_type
 ```
 
-### 🔄 Async Support
+### Async Support
 
 Full pytest-asyncio support for testing async code:
 
 ```python
 @pytest.mark.asyncio
 async def test_async_operation(self):
-    result = await async_function()
-    assert result is not None
+ result = await async_function()
+ assert result is not None
 ```
 
-### 🏗️ Builder Pattern
+###  Builder Pattern
 
 Fluent builders for creating test data:
 
 ```python
 agent = agent_info_builder \
-    .with_name("Analyzer") \
-    .with_expertise(data_analysis_expertise) \
-    .with_endpoint("http://localhost:8000") \
-    .build()
+ .with_name("Analyzer") \
+ .with_expertise(data_analysis_expertise) \
+ .with_endpoint("http://localhost:8000") \
+ .build()
 
 message = message_builder \
-    .with_data(key="value") \
-    .with_sender("test-sender") \
-    .with_recipient("test-recipient") \
-    .build()
+ .with_data(key="value") \
+ .with_sender("test-sender") \
+ .with_recipient("test-recipient") \
+ .build()
 ```
 
 ## Test Categories
@@ -192,11 +192,11 @@ Current status: Check with `./scripts/run_tests.sh --coverage`
 Mark tests for selective execution:
 
 ```python
-@pytest.mark.unit           # Unit test
-@pytest.mark.integration    # Integration test
-@pytest.mark.performance    # Performance test
-@pytest.mark.slow           # Slow running test
-@pytest.mark.asyncio        # Async test
+@pytest.mark.unit # Unit test
+@pytest.mark.integration # Integration test
+@pytest.mark.performance # Performance test
+@pytest.mark.slow # Slow running test
+@pytest.mark.asyncio # Async test
 ```
 
 Run specific markers:
@@ -218,13 +218,13 @@ from unittest.mock import AsyncMock, MagicMock
 
 @pytest.fixture
 def mock_llm():
-    llm = AsyncMock()
-    llm.ainvoke = AsyncMock(return_value=MagicMock(
-        content="Response",
-        tool_calls=[]
-    ))
-    llm.model_name = "gpt-4"
-    return llm
+ llm = AsyncMock()
+ llm.ainvoke = AsyncMock(return_value=MagicMock(
+ content="Response",
+ tool_calls=[]
+ ))
+ llm.model_name = "gpt-4"
+ return llm
 ```
 
 ## Fixtures Scope
@@ -237,10 +237,10 @@ def mock_llm():
 ```python
 @pytest.fixture(scope="session")
 def expensive_resource():
-    # Created once per session
-    resource = setup_expensive_resource()
-    yield resource
-    teardown_expensive_resource()
+ # Created once per session
+ resource = setup_expensive_resource()
+ yield resource
+ teardown_expensive_resource()
 ```
 
 ## Debugging Tests
@@ -255,9 +255,9 @@ pytest -vv tests/sdk/test_types.py
 
 ```python
 def test_something():
-    x = 5
-    print(f"\nDebug: x = {x}")  # -s flag needed to see
-    assert x == 5
+ x = 5
+ print(f"\nDebug: x = {x}") # -s flag needed to see
+ assert x == 5
 
 # Run with: pytest -s tests/sdk/test_types.py
 ```
@@ -266,9 +266,9 @@ def test_something():
 
 ```python
 def test_something():
-    x = 5
-    breakpoint()  # Drops into debugger
-    assert x == 5
+ x = 5
+ breakpoint() # Drops into debugger
+ assert x == 5
 
 # Run with: pytest --pdb tests/sdk/test_types.py
 ```
@@ -276,8 +276,8 @@ def test_something():
 ### Last failed tests
 
 ```bash
-pytest --lf tests/sdk/          # Run last failed
-pytest --ff tests/sdk/          # Failed first
+pytest --lf tests/sdk/ # Run last failed
+pytest --ff tests/sdk/ # Failed first
 ```
 
 ## CI/CD Integration
@@ -286,44 +286,44 @@ pytest --ff tests/sdk/          # Failed first
 
 ```yaml
 - name: Run tests
-  run: ./scripts/run_tests.sh --coverage
+ run: ./scripts/run_tests.sh --coverage
 
 - name: Upload coverage
-  uses: codecov/codecov-action@v3
-  with:
-    files: ./coverage.xml
+ uses: codecov/codecov-action@v3
+ with:
+ files: ./coverage.xml
 ```
 
 ### GitLab CI
 
 ```yaml
 test:
-  script:
-    - ./scripts/run_tests.sh --coverage
-  coverage: '/TOTAL.*\s+(\d+%)$/'
+ script:
+ - ./scripts/run_tests.sh --coverage
+ coverage: '/TOTAL.*\s+(\d+%)$/'
 ```
 
 ## Best Practices
 
-### ✅ Do's
+###  Do's
 
-- ✅ Use descriptive test names
-- ✅ One assertion per test (when possible)
-- ✅ Use fixtures for setup
-- ✅ Parametrize repeated tests
-- ✅ Mock external dependencies
-- ✅ Use proper markers
-- ✅ Test both happy path and errors
-- ✅ Keep tests fast (< 1s each)
+-  Use descriptive test names
+-  One assertion per test (when possible)
+-  Use fixtures for setup
+-  Parametrize repeated tests
+-  Mock external dependencies
+-  Use proper markers
+-  Test both happy path and errors
+-  Keep tests fast (< 1s each)
 
-### ❌ Don'ts
+###  Don'ts
 
-- ❌ Don't test multiple things per test
-- ❌ Don't hardcode test data (use fixtures)
-- ❌ Don't test implementation details
-- ❌ Don't make tests dependent on each other
-- ❌ Don't ignore failing tests
-- ❌ Don't write untestable code
+-  Don't test multiple things per test
+-  Don't hardcode test data (use fixtures)
+-  Don't test implementation details
+-  Don't make tests dependent on each other
+-  Don't ignore failing tests
+-  Don't write untestable code
 
 ## Writing New Tests
 
@@ -334,33 +334,33 @@ import pytest
 from src.aiconexus.sdk.module import YourClass
 
 class TestYourClass:
-    """Tests for YourClass."""
-    
-    def test_basic_functionality(self, required_fixture):
-        """Test basic functionality of YourClass."""
-        # Arrange
-        obj = YourClass(param=required_fixture)
-        
-        # Act
-        result = obj.method()
-        
-        # Assert
-        assert result is not None
-        assert result == expected_value
-    
-    @pytest.mark.parametrize("input,expected", [
-        ("a", "A"),
-        ("b", "B"),
-    ])
-    def test_with_parameters(self, input, expected):
-        """Test with multiple inputs."""
-        assert input.upper() == expected
-    
-    @pytest.mark.asyncio
-    async def test_async_method(self):
-        """Test async method."""
-        result = await async_function()
-        assert result is not None
+ """Tests for YourClass."""
+ 
+ def test_basic_functionality(self, required_fixture):
+ """Test basic functionality of YourClass."""
+ # Arrange
+ obj = YourClass(param=required_fixture)
+ 
+ # Act
+ result = obj.method()
+ 
+ # Assert
+ assert result is not None
+ assert result == expected_value
+ 
+ @pytest.mark.parametrize("input,expected", [
+ ("a", "A"),
+ ("b", "B"),
+ ])
+ def test_with_parameters(self, input, expected):
+ """Test with multiple inputs."""
+ assert input.upper() == expected
+ 
+ @pytest.mark.asyncio
+ async def test_async_method(self):
+ """Test async method."""
+ result = await async_function()
+ assert result is not None
 ```
 
 ## Common Issues
@@ -378,7 +378,7 @@ class TestYourClass:
 # Use @pytest.mark.asyncio decorator
 @pytest.mark.asyncio
 async def test_something():
-    pass
+ pass
 ```
 
 ### Fixture not found
@@ -441,5 +441,5 @@ For test-related questions, contact the team or open an issue on GitHub.
 
 ---
 
-**Status**: ✅ Production-Ready  
+**Status**:  Production-Ready 
 **Last Updated**: January 2026
