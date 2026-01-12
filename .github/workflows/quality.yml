@@ -1,0 +1,59 @@
+name: Code Quality
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.11"
+        cache: 'pip'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install flake8 black isort mypy pylint bandit
+
+    - name: Format check with black
+      run: |
+        black --check src tests
+      continue-on-error: true
+
+    - name: Import sort check with isort
+      run: |
+        isort --check-only src tests
+      continue-on-error: true
+
+    - name: Lint with flake8
+      run: |
+        flake8 src tests --max-line-length=127 --extend-ignore=E203,W503
+      continue-on-error: true
+
+    - name: Type check with mypy
+      run: |
+        pip install types-aiofiles types-setuptools
+        mypy src --ignore-missing-imports
+      continue-on-error: true
+
+    - name: Security check with bandit
+      run: |
+        bandit -r src --skip B101 -f json -o bandit-report.json
+      continue-on-error: true
+
+    - name: Upload quality reports
+      uses: actions/upload-artifact@v3
+      with:
+        name: quality-reports
+        path: |
+          bandit-report.json
+      if: always()

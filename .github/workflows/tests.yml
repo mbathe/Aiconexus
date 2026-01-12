@@ -1,0 +1,85 @@
+name: Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+      fail-fast: false
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+        cache: 'pip'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip setuptools wheel
+        pip install -e ".[dev]"
+
+    - name: Lint with flake8
+      run: |
+        pip install flake8
+        flake8 src tests --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 src tests --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+      continue-on-error: true
+
+    - name: Type check with mypy
+      run: |
+        pip install mypy types-aiofiles types-setuptools
+        mypy src --ignore-missing-imports
+      continue-on-error: true
+
+    - name: Run tests
+      run: |
+        pip install pytest pytest-asyncio pytest-cov
+        PYTHONPATH=src:. pytest tests/ -v --tb=short --cov=src --cov-report=xml --cov-report=term
+
+    - name: Upload coverage
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./coverage.xml
+        fail_ci_if_error: false
+        verbose: true
+
+  integration-test:
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.11"
+        cache: 'pip'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -e ".[dev]"
+
+    - name: Run integration tests
+      run: |
+        pip install pytest pytest-asyncio
+        PYTHONPATH=src:. pytest tests/integration/ -v --tb=short
+      timeout-minutes: 10
+
+    - name: Run load tests
+      run: |
+        pip install pytest pytest-asyncio
+        PYTHONPATH=src:. pytest tests/load/ -v --tb=short
+      timeout-minutes: 15
+      continue-on-error: true

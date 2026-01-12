@@ -3,6 +3,9 @@
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Tests](https://github.com/aiconexus/aiconexus/actions/workflows/tests.yml/badge.svg)](https://github.com/aiconexus/aiconexus/actions/workflows/tests.yml)
+[![Code Quality](https://github.com/aiconexus/aiconexus/actions/workflows/quality.yml/badge.svg)](https://github.com/aiconexus/aiconexus/actions/workflows/quality.yml)
+[![codecov](https://codecov.io/gh/aiconexus/aiconexus/branch/main/graph/badge.svg)](https://codecov.io/gh/aiconexus/aiconexus)
 
 A universal infrastructure for autonomous AI agents to communicate, cooperate, and transact in a decentralized network.
 
