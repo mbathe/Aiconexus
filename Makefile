@@ -97,4 +97,45 @@ setup:
 example-hello:
 	poetry run python examples/hello_world/agent.py
 
+# Gateway Docker Commands
+gateway-build:
+	@echo "Building Gateway Docker image..."
+	./gateway-docker.sh build
+
+gateway-start:
+	@echo "Starting Gateway..."
+	./gateway-docker.sh start
+	@echo "Gateway is running on ws://127.0.0.1:8000/ws"
+
+gateway-stop:
+	@echo "Stopping Gateway..."
+	./gateway-docker.sh stop
+
+gateway-restart:
+	@echo "Restarting Gateway..."
+	./gateway-docker.sh restart
+
+gateway-status:
+	./gateway-docker.sh status
+
+gateway-logs:
+	./gateway-docker.sh logs -f
+
+gateway-health:
+	./gateway-docker.sh health
+
+gateway-shell:
+	./gateway-docker.sh shell
+
+gateway-cleanup:
+	./gateway-docker.sh cleanup
+
+gateway-test:
+	@echo "Testing Gateway Docker deployment..."
+	./test_docker_gateway.sh
+
+gateway-verify:
+	@echo "Verifying Docker setup..."
+	./verify_docker_setup.sh
+
 .DEFAULT_GOAL := help
