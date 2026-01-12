@@ -322,7 +322,7 @@ async def main():
     # Create the agent
     agent = OllamaAgent(
         name="ollama-qa-agent",
-        ollama_model="mistral",  # Change to your preferred model
+        ollama_model="phi",  # Lightweight model (3B, 2GB RAM)
         ollama_base_url="http://localhost:11434",
         gateway_url="ws://127.0.0.1:8000/ws"
     )

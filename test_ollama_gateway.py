@@ -40,7 +40,7 @@ async def test_ollama(ollama_url: str = "http://localhost:11434"):
 
 async def test_ollama_inference(
     ollama_url: str = "http://localhost:11434",
-    model: str = "mistral"
+    model: str = "phi"
 ):
     """Test Ollama inference"""
     print("\n2. Testing Ollama Inference")
