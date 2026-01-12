@@ -3,8 +3,8 @@
 
 set -e
 
-echo "🧪 Running AIConexus Test Suite"
-echo "==============================\n"
+echo "Running AIConexus Test Suite"
+echo "============================="
 
 # Run tests with coverage
 poetry run pytest \
@@ -13,5 +13,6 @@ poetry run pytest \
     --cov-report=term-missing \
     -v
 
-echo "\n✓ Tests completed"
-echo "📊 Coverage report: htmlcov/index.html"
+echo ""
+echo "Tests completed"
+echo "Coverage report: htmlcov/index.html"

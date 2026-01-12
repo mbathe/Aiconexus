@@ -3,8 +3,8 @@
 
 set -e
 
-echo "🎨 Formatting Code"
-echo "==================\n"
+echo "Formatting Code"
+echo "==============="
 
 # Format with black
 echo "Running black..."
@@ -18,4 +18,5 @@ poetry run isort src tests examples
 echo "Linting with ruff..."
 poetry run ruff check src tests examples --fix
 
-echo "\n✓ Formatting complete"
+echo ""
+echo "Formatting complete"

@@ -3,47 +3,54 @@
 
 set -e
 
-echo "🚀 AIConexus Development Environment Setup"
-echo "==========================================\n"
+echo "AIConexus Development Environment Setup"
+echo "========================================"
 
 # Check if Python is installed
 if ! command -v python3 &> /dev/null; then
-    echo "❌ Python 3 is required but not installed"
+    echo "ERROR: Python 3 is required but not installed"
     exit 1
 fi
 
 python_version=$(python3 --version | cut -d' ' -f2)
-echo "✓ Python $python_version found"
+echo "[OK] Python $python_version found"
 
 # Check if Poetry is installed
 if ! command -v poetry &> /dev/null; then
-    echo "⚠️  Poetry not found. Installing Poetry..."
+    echo "WARNING: Poetry not found. Installing Poetry..."
     curl -sSL https://install.python-poetry.org | python3 -
     export PATH="$HOME/.local/bin:$PATH"
 fi
 
-echo "✓ Poetry found"
+echo "[OK] Poetry found"
 
 # Create .env file if it doesn't exist
 if [ ! -f .env ]; then
-    echo "📝 Creating .env from template..."
+    echo "Creating .env from template..."
     cp .env.example .env
-    echo "⚠️  Please update .env with your configuration"
+    echo "WARNING: Please update .env with your configuration"
 fi
 
 # Install dependencies
-echo "\n📦 Installing dependencies..."
+echo ""
+echo "Installing dependencies..."
 poetry install
 
 # Create virtual environment activation message
-echo "\n✓ Setup complete!"
-echo "\n📌 To activate the virtual environment, run:"
+echo ""
+echo "Setup complete!"
+echo ""
+echo "To activate the virtual environment, run:"
 echo "   poetry shell"
-echo "\nOr run commands with:"
+echo ""
+echo "Or run commands with:"
 echo "   poetry run <command>"
-echo "\nTo run tests:"
+echo ""
+echo "To run tests:"
 echo "   poetry run pytest"
-echo "\nTo format code:"
+echo ""
+echo "To format code:"
 echo "   poetry run black src tests"
-echo "\nTo lint code:"
+echo ""
+echo "To lint code:"
 echo "   poetry run ruff check src tests"
