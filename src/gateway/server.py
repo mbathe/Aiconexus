@@ -168,7 +168,8 @@ class GatewayServer:
                 return
             
             agent_did = msg_obj.from_did
-            public_key = msg_obj.payload.get("public_key")
+            # Access public_key from Pydantic model
+            public_key = msg_obj.payload.public_key if hasattr(msg_obj.payload, 'public_key') else None
             
             # Register agent in registry
             entry = RegistryEntry(
