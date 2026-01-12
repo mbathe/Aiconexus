@@ -99,6 +99,11 @@ class DIDKey:
         )
     
     @property
+    def public_key_base58(self) -> str:
+        """Get the public key as base58-encoded string."""
+        return base58.b58encode(self.public_key_bytes).decode("ascii")
+    
+    @property
     def private_key_bytes(self) -> bytes:
         """Get the private key as raw bytes (32 bytes for Ed25519)."""
         return self._private_key.private_bytes(
