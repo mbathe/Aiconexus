@@ -1,0 +1,126 @@
+version: '3.8'
+
+services:
+  # Development Service
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    container_name: aiconexus-dev
+    volumes:
+      - .:/app
+      - /app/.venv
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - LOG_LEVEL=DEBUG
+    command: poetry run pytest -v
+    networks:
+      - aiconexus-network
+    profiles:
+      - dev
+
+  # Testing Service
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: testing
+    container_name: aiconexus-test
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+      - LOG_LEVEL=INFO
+    command: poetry run pytest tests/ -v --cov=src --cov-report=term-missing
+    networks:
+      - aiconexus-network
+    profiles:
+      - test
+
+  # Load Testing Service
+  load-test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: testing
+    container_name: aiconexus-load-test
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+      - LOG_LEVEL=INFO
+    command: poetry run pytest tests/load/ -v
+    networks:
+      - aiconexus-network
+    profiles:
+      - load-test
+
+  # Production Service (example configuration)
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: aiconexus-app
+    ports:
+      - "8000:8000"
+    environment:
+      - LOG_LEVEL=INFO
+      - HOST=0.0.0.0
+      - PORT=8000
+    networks:
+      - aiconexus-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+    profiles:
+      - production
+
+  # Prometheus for metrics collection (optional)
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: aiconexus-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    networks:
+      - aiconexus-network
+    profiles:
+      - monitoring
+
+  # Grafana for visualization (optional)
+  grafana:
+    image: grafana/grafana:latest
+    container_name: aiconexus-grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    networks:
+      - aiconexus-network
+    depends_on:
+      - prometheus
+    profiles:
+      - monitoring
+
+networks:
+  aiconexus-network:
+    driver: bridge
+
+volumes:
+  prometheus_data:
+  grafana_data:
